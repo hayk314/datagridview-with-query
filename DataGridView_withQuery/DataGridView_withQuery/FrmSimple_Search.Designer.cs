@@ -60,6 +60,7 @@
             this.btnExit.TabIndex = 11;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnNext
             // 
@@ -70,6 +71,7 @@
             this.btnNext.TabIndex = 10;
             this.btnNext.Text = "Find next";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // cmbColumns
             // 

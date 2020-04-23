@@ -1,4 +1,10 @@
-﻿namespace DataGridView_withQuery
+﻿/*
+  Author: Hayk Aleksanyan
+  email:  hayk.aleksanyan@gmail.com
+  web:    https://www.github.com/hayk314
+ */
+
+namespace DataGridView_withQuery
 {
     public static class Constants
     {

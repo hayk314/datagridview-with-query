@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+  Author: Hayk Aleksanyan
+  email:  hayk.aleksanyan@gmail.com
+  web:    https://www.github.com/hayk314
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +21,11 @@ namespace DataGridView_withQuery
         public FrmAdvanced_Search()
         {
             InitializeComponent();
+        }
+
+        private void FrmAdvanced_Search_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

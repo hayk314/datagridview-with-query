@@ -1,4 +1,10 @@
-﻿using System.Windows.Forms;
+﻿/*
+  Author: Hayk Aleksanyan
+  email:  hayk.aleksanyan@gmail.com
+  web:    https://www.github.com/hayk314
+ */
+
+using System.Windows.Forms;
 
 namespace DataGridView_withQuery
 {

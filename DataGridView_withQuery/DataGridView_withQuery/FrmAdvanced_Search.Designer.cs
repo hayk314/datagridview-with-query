@@ -353,6 +353,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmAdvanced_Search";
             this.Text = "Advanced Search";
+            this.Load += new System.EventHandler(this.FrmAdvanced_Search_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearch)).EndInit();
             this.ResumeLayout(false);

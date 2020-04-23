@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+  Author: Hayk Aleksanyan
+  email:  hayk.aleksanyan@gmail.com
+  web:    https://www.github.com/hayk314
+ */
+
+using System;
 using System.Linq;
 
 using System.Windows.Forms;
@@ -6,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DataGridView_withQuery
 {
-    class DGV_SearchMeta
+    public class DGV_SearchMeta
     {
         public DataGridView dgv;
 
