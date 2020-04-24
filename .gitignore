@@ -1,3 +1,7 @@
 DataGridView_withQuery/.vs/*
 DataGridView_withQuery/DataGridView_withQuery/obj/*
 DataGridView_withQuery/DataGridView_withQuery/bin/*
+Test/.vs/*
+Test/Test/obj/*
+Test/Test/bin/*
+*.mdb
