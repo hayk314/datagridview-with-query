@@ -77,6 +77,7 @@
             this.BtnDown.TabIndex = 127;
             this.toolTip1.SetToolTip(this.BtnDown, "Move the row down");
             this.BtnDown.UseVisualStyleBackColor = true;
+            this.BtnDown.Click += new System.EventHandler(this.BtnDown_Click);
             // 
             // BtnUp
             // 
@@ -87,6 +88,13 @@
             this.BtnUp.TabIndex = 126;
             this.toolTip1.SetToolTip(this.BtnUp, "Move the row up");
             this.BtnUp.UseVisualStyleBackColor = true;
+            this.BtnUp.Click += new System.EventHandler(this.BtnUp_Click);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // openFileDialog1
             // 
@@ -113,7 +121,7 @@
             this.toolStripMenuItem3,
             this.MenuHelp});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(292, 334);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(292, 362);
             // 
             // MenuNewSearchRow
             // 
@@ -121,42 +129,49 @@
             this.MenuNewSearchRow.Name = "MenuNewSearchRow";
             this.MenuNewSearchRow.Size = new System.Drawing.Size(291, 24);
             this.MenuNewSearchRow.Text = "New search row";
+            this.MenuNewSearchRow.Click += new System.EventHandler(this.MenuNewSearchRow_Click);
             // 
             // MenuCopySearchRow
             // 
             this.MenuCopySearchRow.Name = "MenuCopySearchRow";
             this.MenuCopySearchRow.Size = new System.Drawing.Size(291, 24);
             this.MenuCopySearchRow.Text = "Copy the selected row";
+            this.MenuCopySearchRow.Click += new System.EventHandler(this.MenuCopySearchRow_Click);
             // 
             // MenuPasteSearchRow
             // 
             this.MenuPasteSearchRow.Name = "MenuPasteSearchRow";
             this.MenuPasteSearchRow.Size = new System.Drawing.Size(291, 24);
             this.MenuPasteSearchRow.Text = "Paste row from clipboard";
+            this.MenuPasteSearchRow.Click += new System.EventHandler(this.MenuPasteSearchRow_Click);
             // 
             // MenuDeleteSearchRow
             // 
             this.MenuDeleteSearchRow.Name = "MenuDeleteSearchRow";
             this.MenuDeleteSearchRow.Size = new System.Drawing.Size(291, 24);
             this.MenuDeleteSearchRow.Text = "Delete the selected row";
+            this.MenuDeleteSearchRow.Click += new System.EventHandler(this.MenuDeleteSearchRow_Click);
             // 
             // MenuClearAll
             // 
             this.MenuClearAll.Name = "MenuClearAll";
             this.MenuClearAll.Size = new System.Drawing.Size(291, 24);
             this.MenuClearAll.Text = "Clear All";
+            this.MenuClearAll.Click += new System.EventHandler(this.MenuClearAll_Click);
             // 
             // MenuMoveUp
             // 
             this.MenuMoveUp.Name = "MenuMoveUp";
             this.MenuMoveUp.Size = new System.Drawing.Size(291, 24);
             this.MenuMoveUp.Text = "Move the row Up";
+            this.MenuMoveUp.Click += new System.EventHandler(this.MenuMoveUp_Click);
             // 
             // MenuMoveDown
             // 
             this.MenuMoveDown.Name = "MenuMoveDown";
             this.MenuMoveDown.Size = new System.Drawing.Size(291, 24);
             this.MenuMoveDown.Text = "Move the row Down";
+            this.MenuMoveDown.Click += new System.EventHandler(this.MenuMoveDown_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -168,18 +183,21 @@
             this.MenuWizard.Name = "MenuWizard";
             this.MenuWizard.Size = new System.Drawing.Size(291, 24);
             this.MenuWizard.Text = "Search wizard";
+            this.MenuWizard.Click += new System.EventHandler(this.MenuWizard_Click);
             // 
             // MenuLoadFromFile
             // 
             this.MenuLoadFromFile.Name = "MenuLoadFromFile";
             this.MenuLoadFromFile.Size = new System.Drawing.Size(291, 24);
             this.MenuLoadFromFile.Text = "Load search conditions from file";
+            this.MenuLoadFromFile.Click += new System.EventHandler(this.MenuLoadFromFile_Click);
             // 
             // MenuSaveSearch
             // 
             this.MenuSaveSearch.Name = "MenuSaveSearch";
             this.MenuSaveSearch.Size = new System.Drawing.Size(291, 24);
             this.MenuSaveSearch.Text = "Save search conditions to file";
+            this.MenuSaveSearch.Click += new System.EventHandler(this.MenuSaveSearch_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -191,12 +209,14 @@
             this.MenuFilter.Name = "MenuFilter";
             this.MenuFilter.Size = new System.Drawing.Size(291, 24);
             this.MenuFilter.Text = "Apply the filter";
+            this.MenuFilter.Click += new System.EventHandler(this.MenuFilter_Click);
             // 
             // MenuFindNext
             // 
             this.MenuFindNext.Name = "MenuFindNext";
             this.MenuFindNext.Size = new System.Drawing.Size(291, 24);
             this.MenuFindNext.Text = "Find next";
+            this.MenuFindNext.Click += new System.EventHandler(this.MenuFindNext_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -227,6 +247,7 @@
             this.BtnWizard.TabIndex = 135;
             this.BtnWizard.Text = "Wizard";
             this.BtnWizard.UseVisualStyleBackColor = true;
+            this.BtnWizard.Click += new System.EventHandler(this.BtnWizard_Click);
             // 
             // BtnAddNewSearchRow
             // 
@@ -237,6 +258,7 @@
             this.BtnAddNewSearchRow.TabIndex = 134;
             this.BtnAddNewSearchRow.Text = "New Row";
             this.BtnAddNewSearchRow.UseVisualStyleBackColor = true;
+            this.BtnAddNewSearchRow.Click += new System.EventHandler(this.BtnAddNewSearchRow_Click);
             // 
             // BtnFindNext
             // 
@@ -247,6 +269,7 @@
             this.BtnFindNext.TabIndex = 133;
             this.BtnFindNext.Text = "Find Next";
             this.BtnFindNext.UseVisualStyleBackColor = true;
+            this.BtnFindNext.Click += new System.EventHandler(this.BtnFindNext_Click);
             // 
             // BtnFilter
             // 
@@ -257,6 +280,7 @@
             this.BtnFilter.TabIndex = 132;
             this.BtnFilter.Text = "Filter";
             this.BtnFilter.UseVisualStyleBackColor = true;
+            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
             // 
             // BtnCommands
             // 
@@ -267,6 +291,7 @@
             this.BtnCommands.TabIndex = 131;
             this.BtnCommands.Text = "Commands";
             this.BtnCommands.UseVisualStyleBackColor = true;
+            this.BtnCommands.Click += new System.EventHandler(this.BtnCommands_Click);
             // 
             // txtSearch
             // 
@@ -297,6 +322,10 @@
             this.dgvSearch.Name = "dgvSearch";
             this.dgvSearch.Size = new System.Drawing.Size(747, 223);
             this.dgvSearch.TabIndex = 128;
+            this.dgvSearch.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvSearch_CellBeginEdit);
+            this.dgvSearch.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSearch_CellContentClick);
+            this.dgvSearch.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSearch_CellEndEdit);
+            this.dgvSearch.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSearch_EditingControlShowing);
             // 
             // BtnStopFilter
             // 
@@ -308,6 +337,7 @@
             this.BtnStopFilter.TabIndex = 125;
             this.BtnStopFilter.Text = "Stop";
             this.BtnStopFilter.UseVisualStyleBackColor = true;
+            this.BtnStopFilter.Click += new System.EventHandler(this.BtnStopFilter_Click);
             // 
             // Label1
             // 
@@ -328,6 +358,7 @@
             this.BtnExit.TabIndex = 123;
             this.BtnExit.Text = "Exit";
             this.BtnExit.UseVisualStyleBackColor = true;
+            this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // FrmAdvanced_Search
             // 
@@ -354,6 +385,7 @@
             this.Name = "FrmAdvanced_Search";
             this.Text = "Advanced Search";
             this.Load += new System.EventHandler(this.FrmAdvanced_Search_Load);
+            this.Resize += new System.EventHandler(this.FrmAdvanced_Search_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearch)).EndInit();
             this.ResumeLayout(false);
