@@ -1291,13 +1291,11 @@ namespace DataGridView_withQuery
 
         private void BtnWizard_Click(object sender, EventArgs e)
         {
-            /*
             FrmWizard F_Wizard = new FrmWizard(this.dgvToBeSearchedMeta, this);
             F_Wizard.ShowDialog();
 
             F_Wizard.Dispose();
-            F_Wizard = null;
-            */
+            F_Wizard = null;           
         }
 
         private void BtnCommands_Click(object sender, EventArgs e)
