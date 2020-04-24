@@ -121,7 +121,7 @@
             this.toolStripMenuItem3,
             this.MenuHelp});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(292, 362);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(292, 334);
             // 
             // MenuNewSearchRow
             // 
@@ -379,10 +379,12 @@
             this.Controls.Add(this.BtnStopFilter);
             this.Controls.Add(this.Label1);
             this.Controls.Add(this.BtnExit);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(927, 488);
             this.Name = "FrmAdvanced_Search";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Advanced Search";
             this.Load += new System.EventHandler(this.FrmAdvanced_Search_Load);
             this.Resize += new System.EventHandler(this.FrmAdvanced_Search_Resize);

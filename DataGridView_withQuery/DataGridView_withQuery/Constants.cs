@@ -1,8 +1,8 @@
 ﻿/*
   Author: Hayk Aleksanyan
   email:  hayk.aleksanyan@gmail.com
-  web:    https://www.github.com/hayk314
- */
+  web:    https://github.com/hayk314
+*/
 
 namespace DataGridView_withQuery
 {

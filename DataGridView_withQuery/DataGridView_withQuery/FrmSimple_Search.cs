@@ -1,8 +1,8 @@
 ﻿/*
   Author: Hayk Aleksanyan
   email:  hayk.aleksanyan@gmail.com
-  web:    https://www.github.com/hayk314
- */
+  web:    https://github.com/hayk314
+*/
 
 using System;
 using System.Collections.Generic;
@@ -29,14 +29,20 @@ namespace DataGridView_withQuery
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Construct a simple search form.
+        /// </summary>
+        /// <param name="dgvToSearch">The datagridview control on which the search will be performed</param>
+        /// <param name="searchTitle">User defined title of the search form.</param>
         public FrmSimple_Search(DataGridView dgvToSearch, string searchTitle)
         {
             InitializeComponent();
-
             this.dgvToBeSearchedMeta = new DGV_SearchMeta(dgvToSearch, searchTitle);
         }
 
-
+        /// <summary>
+        /// Reads the columns of the datagridview on which search will be performed.
+        /// </summary>
         private void ReadGridColumns()
         {
             // reads the column names of the datagrid_search and populates the combo box
@@ -219,5 +225,6 @@ namespace DataGridView_withQuery
         {
             this.Close();
         }
+
     }
 }

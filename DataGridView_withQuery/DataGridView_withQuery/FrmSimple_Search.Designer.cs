@@ -129,7 +129,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmSimple_Search";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Simple Search";
+            this.Load += new System.EventHandler(this.FrmSimple_Search_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
