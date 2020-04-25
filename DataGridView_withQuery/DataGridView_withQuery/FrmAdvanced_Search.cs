@@ -32,7 +32,9 @@ namespace DataGridView_withQuery
         private int LastMatched_Row = -1;   // stores the index of the last matched row in the grid to be searched with Find-Next
         private bool StopOnFirstMatch = false; // used to indicate if the running search is Filter or Find-Next
 
-        private List<int> UnMatchedRows = null; // row indices of grid_ToSearch that did not matched the search query (the filter) 
+        private List<int> UnMatchedRows = null;        // row indices of grid_ToSearch that did not matched the search query (the filter) 
+        private DataGridViewRow[] MatchedRows = null;  // rows that matched the filter condition
+        private List<int> MatchedRowIndices = null;
         private int MatchCount = 0;             // how many (visible) rows match the filter
 
 
@@ -158,6 +160,9 @@ namespace DataGridView_withQuery
 
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.WorkerReportsProgress = true;
+
+            this.Size = new Size(800, 450);
+            this.CenterToScreen();
         }
 
         private void FrmAdvanced_Search_Resize(object sender, EventArgs e)
@@ -1373,7 +1378,8 @@ namespace DataGridView_withQuery
 
             if (StopOnFirstMatch == false)  // The FILTER; 
             {
-                UnMatchedRows = new List<int>();
+                //UnMatchedRows = new List<int>();
+                MatchedRowIndices = new List<int>();
                 MatchCount = 0;
 
                 for (int i = 0; i < dgvToBeSearchedMeta.dgv.RowCount; ++i)
@@ -1383,9 +1389,13 @@ namespace DataGridView_withQuery
                         if (dgvToBeSearchedMeta.dgv.Rows[i].Visible == true)
                         {
                             if (MatchGridRowAgainstSearchQuery(i, SearchBlocks))
+                            {
                                 MatchCount++;
-                            else
-                                UnMatchedRows.Add(i);
+                                MatchedRowIndices.Add(i);
+                            }
+                                
+                            //else
+                            //    UnMatchedRows.Add(i);
                         }
                         backgroundWorker1.ReportProgress(Convert.ToInt32(100 * i / (dgvToBeSearchedMeta.dgv.RowCount)));
                     }
@@ -1468,6 +1478,7 @@ namespace DataGridView_withQuery
 
                     this.Cursor = Cursors.WaitCursor;
 
+                    /*
                     CurrencyManager currencyManager1 = null;
 
                     if (dgvToBeSearchedMeta.dgv.DataSource != null)
@@ -1483,6 +1494,25 @@ namespace DataGridView_withQuery
 
                     if (dgvToBeSearchedMeta.dgv.DataSource != null)
                         currencyManager1.ResumeBinding();
+
+                    */
+
+                    MatchedRows = new DataGridViewRow[MatchedRowIndices.Count];
+
+                    for (int i = 0; i < MatchedRowIndices.Count; ++i)
+                    {
+                        int k = MatchedRowIndices[i];
+                        MatchedRows[i] = (DataGridViewRow)dgvToBeSearchedMeta.dgv.Rows[ k ].Clone();
+                        for (int j = 0; j < dgvToBeSearchedMeta.dgv.ColumnCount; ++j)
+                        {
+                            MatchedRows[i].Cells[j].Value = dgvToBeSearchedMeta.dgv.Rows[k].Cells[j].Value;
+                        }
+                    }
+
+                    dgvToBeSearchedMeta.dgv.Rows.Clear();
+                    dgvToBeSearchedMeta.dgv.Rows.AddRange(MatchedRows);
+
+                    MatchedRows = null;
 
                     this.Cursor = Cursors.Default;
                 }

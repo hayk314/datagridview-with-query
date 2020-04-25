@@ -4,4 +4,5 @@ DataGridView_withQuery/DataGridView_withQuery/bin/*
 Test/.vs/*
 Test/Test/obj/*
 Test/Test/bin/*
+searchFiles/*
 *.mdb

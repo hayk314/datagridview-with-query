@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+  Author: Hayk Aleksanyan
+  email:  hayk.aleksanyan@gmail.com
+  web:    https://github.com/hayk314
+*/
+
+using System;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
