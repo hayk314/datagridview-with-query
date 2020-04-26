@@ -107,6 +107,7 @@
             this.Controls.Add(this.btnLoad);
             this.Name = "Form1";
             this.Text = "Testing datagridview with query";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);

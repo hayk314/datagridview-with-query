@@ -59,6 +59,7 @@
             this.btnExit.Size = new System.Drawing.Size(79, 32);
             this.btnExit.TabIndex = 11;
             this.btnExit.Text = "Exit";
+            this.toolTip1.SetToolTip(this.btnExit, "Close the screen");
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -70,6 +71,7 @@
             this.btnNext.Size = new System.Drawing.Size(99, 32);
             this.btnNext.TabIndex = 10;
             this.btnNext.Text = "Find next";
+            this.toolTip1.SetToolTip(this.btnNext, "Find the next value matching the search text");
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 

@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.BtnDown = new System.Windows.Forms.Button();
-            this.BtnUp = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -64,31 +62,11 @@
             this.BtnStopFilter = new System.Windows.Forms.Button();
             this.Label1 = new System.Windows.Forms.Label();
             this.BtnExit = new System.Windows.Forms.Button();
+            this.BtnDown = new System.Windows.Forms.Button();
+            this.BtnUp = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearch)).BeginInit();
             this.SuspendLayout();
-            // 
-            // BtnDown
-            // 
-            this.BtnDown.Location = new System.Drawing.Point(785, 75);
-            this.BtnDown.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnDown.Name = "BtnDown";
-            this.BtnDown.Size = new System.Drawing.Size(42, 43);
-            this.BtnDown.TabIndex = 127;
-            this.toolTip1.SetToolTip(this.BtnDown, "Move the row down");
-            this.BtnDown.UseVisualStyleBackColor = true;
-            this.BtnDown.Click += new System.EventHandler(this.BtnDown_Click);
-            // 
-            // BtnUp
-            // 
-            this.BtnUp.Location = new System.Drawing.Point(783, 23);
-            this.BtnUp.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnUp.Name = "BtnUp";
-            this.BtnUp.Size = new System.Drawing.Size(44, 44);
-            this.BtnUp.TabIndex = 126;
-            this.toolTip1.SetToolTip(this.BtnUp, "Move the row up");
-            this.BtnUp.UseVisualStyleBackColor = true;
-            this.BtnUp.Click += new System.EventHandler(this.BtnUp_Click);
             // 
             // backgroundWorker1
             // 
@@ -246,6 +224,7 @@
             this.BtnWizard.Size = new System.Drawing.Size(84, 31);
             this.BtnWizard.TabIndex = 135;
             this.BtnWizard.Text = "Wizard";
+            this.toolTip1.SetToolTip(this.BtnWizard, "Open the search wizard");
             this.BtnWizard.UseVisualStyleBackColor = true;
             this.BtnWizard.Click += new System.EventHandler(this.BtnWizard_Click);
             // 
@@ -257,6 +236,7 @@
             this.BtnAddNewSearchRow.Size = new System.Drawing.Size(84, 31);
             this.BtnAddNewSearchRow.TabIndex = 134;
             this.BtnAddNewSearchRow.Text = "New Row";
+            this.toolTip1.SetToolTip(this.BtnAddNewSearchRow, "Add new search row");
             this.BtnAddNewSearchRow.UseVisualStyleBackColor = true;
             this.BtnAddNewSearchRow.Click += new System.EventHandler(this.BtnAddNewSearchRow_Click);
             // 
@@ -268,6 +248,7 @@
             this.BtnFindNext.Size = new System.Drawing.Size(91, 31);
             this.BtnFindNext.TabIndex = 133;
             this.BtnFindNext.Text = "Find Next";
+            this.toolTip1.SetToolTip(this.BtnFindNext, "Find the next value in the data grid matching the query");
             this.BtnFindNext.UseVisualStyleBackColor = true;
             this.BtnFindNext.Click += new System.EventHandler(this.BtnFindNext_Click);
             // 
@@ -279,6 +260,7 @@
             this.BtnFilter.Size = new System.Drawing.Size(91, 31);
             this.BtnFilter.TabIndex = 132;
             this.BtnFilter.Text = "Filter";
+            this.toolTip1.SetToolTip(this.BtnFilter, "Filter data grid by the query");
             this.BtnFilter.UseVisualStyleBackColor = true;
             this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
             // 
@@ -290,6 +272,7 @@
             this.BtnCommands.Size = new System.Drawing.Size(91, 31);
             this.BtnCommands.TabIndex = 131;
             this.BtnCommands.Text = "Commands";
+            this.toolTip1.SetToolTip(this.BtnCommands, "Open list of commands");
             this.BtnCommands.UseVisualStyleBackColor = true;
             this.BtnCommands.Click += new System.EventHandler(this.BtnCommands_Click);
             // 
@@ -336,6 +319,7 @@
             this.BtnStopFilter.Size = new System.Drawing.Size(84, 31);
             this.BtnStopFilter.TabIndex = 125;
             this.BtnStopFilter.Text = "Stop";
+            this.toolTip1.SetToolTip(this.BtnStopFilter, "Stop the search");
             this.BtnStopFilter.UseVisualStyleBackColor = true;
             this.BtnStopFilter.Click += new System.EventHandler(this.BtnStopFilter_Click);
             // 
@@ -357,8 +341,33 @@
             this.BtnExit.Size = new System.Drawing.Size(61, 31);
             this.BtnExit.TabIndex = 123;
             this.BtnExit.Text = "Exit";
+            this.toolTip1.SetToolTip(this.BtnExit, "Close the screen");
             this.BtnExit.UseVisualStyleBackColor = true;
             this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
+            // 
+            // BtnDown
+            // 
+            this.BtnDown.Image = global::DataGridView_withQuery.Properties.Resources.arrow_down;
+            this.BtnDown.Location = new System.Drawing.Point(785, 75);
+            this.BtnDown.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnDown.Name = "BtnDown";
+            this.BtnDown.Size = new System.Drawing.Size(42, 43);
+            this.BtnDown.TabIndex = 127;
+            this.toolTip1.SetToolTip(this.BtnDown, "Move the row down");
+            this.BtnDown.UseVisualStyleBackColor = true;
+            this.BtnDown.Click += new System.EventHandler(this.BtnDown_Click);
+            // 
+            // BtnUp
+            // 
+            this.BtnUp.Image = global::DataGridView_withQuery.Properties.Resources.arrow_up;
+            this.BtnUp.Location = new System.Drawing.Point(783, 23);
+            this.BtnUp.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnUp.Name = "BtnUp";
+            this.BtnUp.Size = new System.Drawing.Size(44, 44);
+            this.BtnUp.TabIndex = 126;
+            this.toolTip1.SetToolTip(this.BtnUp, "Move the row up");
+            this.BtnUp.UseVisualStyleBackColor = true;
+            this.BtnUp.Click += new System.EventHandler(this.BtnUp_Click);
             // 
             // FrmAdvanced_Search
             // 

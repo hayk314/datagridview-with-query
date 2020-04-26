@@ -1472,13 +1472,12 @@ namespace DataGridView_withQuery
                     MessageBox.Show("Nothing was found", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                 {
-                    MessageBox.Show("Found " + Convert.ToInt32(MatchCount) + " records matching the query", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // in the grid on which the search was run, hide all rows that did not match the query
+                    MessageBox.Show("Found " + Convert.ToInt32(MatchCount) + " records matching the query", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);                   
 
                     this.Cursor = Cursors.WaitCursor;
 
                     /*
+                    // in the grid on which the search was run, hide all rows that did not match the query
                     CurrencyManager currencyManager1 = null;
 
                     if (dgvToBeSearchedMeta.dgv.DataSource != null)
