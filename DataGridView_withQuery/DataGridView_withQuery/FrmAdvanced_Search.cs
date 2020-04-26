@@ -648,7 +648,10 @@ namespace DataGridView_withQuery
 
                         blockSize++;
                         Array.Resize(ref res[blockN - 1], blockSize);
-                        res[blockN - 1][blockSize - 1] = i;
+                        if (dgvSearch.Rows[i].Cells["conj"].Value.ToString() == Constants.ConjAnd)
+                            res[blockN - 1][blockSize - 1] = i;
+                        else
+                            res[blockN - 1][blockSize - 1] = -i;  // to represent the NOT conjuction
                     }
                 }
                 i++;
@@ -672,15 +675,29 @@ namespace DataGridView_withQuery
 
                 while (j < SearchBlocks[i].Length && blockMatch == true)
                 {
-                    int k = Convert.ToInt32(dgvSearch.Rows[SearchBlocks[i][j]].Cells["indexInGrid"].Value.ToString());
+                    int searchRow = SearchBlocks[i][j];
+                    bool AndConj = true;
+                    if (searchRow < 0)  // this is NOT row
+                    {
+                        searchRow = -searchRow;
+                        AndConj = false;
+                    }
+
+                    int k = Convert.ToInt32(dgvSearch.Rows[searchRow].Cells["indexInGrid"].Value.ToString());
                     string cellValue = (dgvToBeSearchedMeta.dgv.Rows[RowIndex].Cells[k].Value ?? "").ToString();
 
-                    if (CellDataMatchesWithSearch(cellValue, dgvSearch.Rows[SearchBlocks[i][j]].Cells["colValType"].Value.ToString(),
-                        dgvSearch.Rows[SearchBlocks[i][j]].Cells["operator"].Value.ToString(),
-                        dgvSearch.Rows[SearchBlocks[i][j]].Cells["searchVal"].Value.ToString(),
-                        dgvSearch.Rows[SearchBlocks[i][j]].Cells["searchVal2"].Value.ToString()) == false)
+                    if (CellDataMatchesWithSearch(cellValue, dgvSearch.Rows[searchRow].Cells["colValType"].Value.ToString(),
+                        dgvSearch.Rows[searchRow].Cells["operator"].Value.ToString(),
+                        dgvSearch.Rows[searchRow].Cells["searchVal"].Value.ToString(),
+                        dgvSearch.Rows[searchRow].Cells["searchVal2"].Value.ToString()) == false)
                     {
-                        blockMatch = false;
+                        if (AndConj == true)
+                            blockMatch = false;
+                    }
+                    else
+                    {
+                        if (AndConj == false)
+                            blockMatch = false;
                     }
                     j++;
                 }
