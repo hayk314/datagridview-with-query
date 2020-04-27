@@ -350,8 +350,17 @@ namespace DataGridView_withQuery
 
         private void ComboSearchCondition_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TxtSearchVal2.Visible = (ComboSearchCondition.Text == Constants.operator_Between);
-            Label_SearchValue2.Visible = (ComboSearchCondition.Text == Constants.operator_Between);
+            if (ComboSearchCondition.Text == Constants.operator_Between || ComboSearchCondition.Text == Constants.operator_Edit_Distance)
+            {
+                TxtSearchVal2.Visible = true;
+                Label_SearchValue2.Visible = true;
+            }
+            else
+            {
+                TxtSearchVal2.Visible = false;
+                Label_SearchValue2.Visible = false;
+            }
+            
 
             this.queryMeta.searchCondition = ComboSearchCondition.Text;
             if (TxtSearchVal2.Visible == false)
