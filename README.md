@@ -18,6 +18,16 @@ When using this control, the user does not need to know anything about how SQL w
 - create search queries using build-in wizard assistant.
 
 
+## Example
+
+<p align="center">
+  <img src ="https://github.com/hayk314/datagridview-with-query/blob/master/screenshots/searchGrid_example.png" alt = "DataGrid Query Builder">
+</p>
+<p align="center">
+The screen of query builder. The user can select columns of the grid on which the search will be performed. The search query is automatically transformed into plain English. You can apply the query build here  by clicking the Filter button. Follow the Commands button for more options.</b>
+</p>
+
+
 ## Sample usage
 
 In your project you will need to add a reference to the ``DataGridView_withQuery.dll`` from this project's Release folder. Afterwards,  add a ``DataGridViw_withQuery``control named, say ``Datagrid_1``, on a form you wish. To invoke the search functionality just call the following
