@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.btnLoad = new System.Windows.Forms.Button();
-            this.Datagrid_1 = new DataGridView_withQuery.DataGridView_withQuery();
             this.txtDataRecords = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearchSimple = new System.Windows.Forms.Button();
             this.btnSearchAdvanced = new System.Windows.Forms.Button();
+            this.Datagrid_1 = new DataGridView_withQuery.DataGridView_withQuery();
             ((System.ComponentModel.ISupportInitialize)(this.Datagrid_1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,16 +46,6 @@
             this.btnLoad.Text = "Load Data";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
-            // Datagrid_1
-            // 
-            this.Datagrid_1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Datagrid_1.Location = new System.Drawing.Point(23, 93);
-            this.Datagrid_1.Name = "Datagrid_1";
-            this.Datagrid_1.RowTemplate.Height = 24;
-            this.Datagrid_1.SearchFormTitle = "Search on Test grid";
-            this.Datagrid_1.Size = new System.Drawing.Size(917, 361);
-            this.Datagrid_1.TabIndex = 1;
             // 
             // txtDataRecords
             // 
@@ -93,6 +83,16 @@
             this.btnSearchAdvanced.Text = "Advanced Sarch";
             this.btnSearchAdvanced.UseVisualStyleBackColor = true;
             this.btnSearchAdvanced.Click += new System.EventHandler(this.btnSearchAdvanced_Click);
+            // 
+            // Datagrid_1
+            // 
+            this.Datagrid_1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Datagrid_1.Location = new System.Drawing.Point(23, 93);
+            this.Datagrid_1.Name = "Datagrid_1";
+            this.Datagrid_1.RowTemplate.Height = 24;
+            this.Datagrid_1.SearchFormTitle = "Test grid";
+            this.Datagrid_1.Size = new System.Drawing.Size(917, 361);
+            this.Datagrid_1.TabIndex = 1;
             // 
             // Form1
             // 
