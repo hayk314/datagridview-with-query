@@ -1734,9 +1734,9 @@ namespace DataGridView_withQuery
 
             DataGridViewComboBoxCell ComboCell_1 = new DataGridViewComboBoxCell();
 
-            ComboCell_1.Items.Add("AND");
-            ComboCell_1.Items.Add("OR");
-            ComboCell_1.Items.Add("NOT");
+            ComboCell_1.Items.Add(Constants.ConjAnd);
+            ComboCell_1.Items.Add(Constants.ConjOr);
+            ComboCell_1.Items.Add(Constants.ConjNot);
             ComboCell_1.DisplayStyleForCurrentCellOnly = true;
 
             CopiedSearchRow.Cells.Add(ComboCell_1);
@@ -1748,8 +1748,8 @@ namespace DataGridView_withQuery
             }
 
             CopiedSearchRow.Cells[0].Value = dgvSearch.Rows[k].Cells[0].Value;
-            if (CopiedSearchRow.Cells[0].Value.ToString() == "IF")
-                CopiedSearchRow.Cells[0].Value = "AND";
+            if (CopiedSearchRow.Cells[0].Value.ToString() == Constants.ConjDeafult)
+                CopiedSearchRow.Cells[0].Value = Constants.ConjAnd;
 
         }
 
