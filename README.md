@@ -17,9 +17,24 @@ When using this control, the user does not need to know anything about how SQL w
 - save your query in a file and load it later on.
 - create search queries using build-in wizard assistant.
 
+## Sample usage
 
-## Example
+In your project you will need to add a reference to the ``DataGridView_withQuery.dll`` from this project's Release folder. Afterwards,  add a ``DataGridViw_withQuery``control named, say ``Datagrid_1``, on a form you wish. Consider filling the ``SearchFormTitle`` property of the grid which controls the caption of the search form (see the ``Test`` project of this repository for an explicit example).
+To invoke the search functionality just call the following
 
+```C#
+this.Datagrid_1.SearchAdvancedStart();
+```
+which will open the advanced search form on your screen.
+
+<p align="center">
+  <img src ="https://github.com/hayk314/datagridview-with-query/blob/master/screenshots/searchGrid_onDGV.png" alt = "DataGrid Query Builder">
+</p>
+<p align="center">
+The search query builder on a datagridview. Using this form the user can create and execute search queries involving the columns of the data grid that can be joined in query with various criteria.</b>
+</p>
+
+The main screen that is used to build the queries looks as follows.
 <p align="center">
   <img src ="https://github.com/hayk314/datagridview-with-query/blob/master/screenshots/searchGrid_example.png" alt = "DataGrid Query Builder">
 </p>
@@ -27,17 +42,17 @@ When using this control, the user does not need to know anything about how SQL w
 The screen of query builder. The user can select columns of the grid on which the search will be performed. The search query is automatically transformed into plain English. You can apply the query build here  by clicking the Filter button. Follow the Commands button for more options.</b>
 </p>
 
+The **building blocks** of the query are the **columns** of the datagridview. The user can add new rows to the query builder's grid and for each row select a column from a combobox prefilled by the names of the columns of the datagridview on which the search is performed.
+The image below shows this list of columns in an opened form. Each column's data type (String, Numeric, Date, Boolean) is determined automatically, and based on this types a list of search operators can be applied to the given column. For example if the data in a given column is numerical, then one can use ``=, <>, >=, <= , In Between`` operators to define the search condition involving the that column. 
 
-## Sample usage
+<p align="center">
+  <img src ="https://github.com/hayk314/datagridview-with-query/blob/master/screenshots/ColumnNameCombo.png" width="350" alt = "Columns of DataGridView in Query Builder">
+</p>
 
-In your project you will need to add a reference to the ``DataGridView_withQuery.dll`` from this project's Release folder. Afterwards,  add a ``DataGridViw_withQuery``control named, say ``Datagrid_1``, on a form you wish. To invoke the search functionality just call the following
+The query can be build also using the **Wizard** accessible from the advanced search form (see the ``Wizard`` button). This Wizard is an interface that allows the user to build the query in a step by step fashion.
 
-```C#
-this.Datagrid_1.SearchAdvancedStart();
-```
-
-Consider filling the ``SearchFormTitle`` property of the grid which controls the caption of the search form. 
-For an explicit example, see the ``Test`` project of this repository.
+Once the search query is complete it can be used to filter the data in the grid. The queries can also be saved in a file for later use.
+See the ``Commands`` button on the search screen for more options.
 
 ## Caveats
 
