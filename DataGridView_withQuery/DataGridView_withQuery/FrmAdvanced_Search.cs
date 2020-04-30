@@ -259,6 +259,87 @@ namespace DataGridView_withQuery
             return ans;
         }
 
+        private void PopulateGridFrom_List_of_Dictionaries(List<Dictionary<string, string>> dictList)
+        {
+            // given the result of DecodeGridDictFromBinary, i.e. a list of dictionaries where each dictionary 
+            // represents a row in search grid, this function aims to populate the search grid from this list
+            // for incorrect data, throws an error
+
+            // check if the search file is not corrputed
+            string exceptionMsg = "Search data is not in a correct format.";
+
+            foreach (Dictionary<string, string> singleRow in dictList)
+            {
+                if (singleRow.Count != this.dgvSearch.Columns.Count)
+                {
+                    throw new Exception("Search data is not in a correct format.");
+                }
+
+                // the column count is the same as the dicitionary elements; so we will simply exhaust the columns
+                // ignoring a possible mixing of the order
+
+                for (int k = 0; k < this.dgvSearch.ColumnCount; ++k)
+                {
+                    if (singleRow.ContainsKey(this.dgvSearch.Columns[k].Name) == false)
+                        throw new Exception(exceptionMsg);
+                    if (dgvSearch.Columns[k].Name == "conj")
+                    {
+                        string val = singleRow["conj"];
+                        if (DGV_SearchMeta.IsConjText(val) == false)
+                            throw new Exception(exceptionMsg);
+                    }
+                    if (dgvSearch.Columns[k].Name == "colName")
+                    {
+                        string val = singleRow["colName"];
+                        if (this.dgvToBeSearchedMeta.HasColumnNamed(val) == false)
+                            throw new Exception(exceptionMsg);
+                    }
+                    if (dgvSearch.Columns[k].Name == "colIndex")
+                    {
+                        string val = singleRow["colIndex"];
+                        int x = -1;
+                        if (Int32.TryParse(val, out x) == false || (x < 0) || (x >= this.dgvToBeSearchedMeta.ColumnIndexLength))
+                        {
+                            throw new Exception(exceptionMsg);
+                        }
+                    }
+                    if (dgvSearch.Columns[k].Name == "colValType")
+                    {
+                        string val = singleRow["colValType"];
+                        if (DGV_SearchMeta.IsValueType(val) == false)
+                            throw new Exception(exceptionMsg);
+                    }
+                    if (dgvSearch.Columns[k].Name == "searchOperator")
+                    {
+                        string val = singleRow["searchOperator"];
+                        if (DGV_SearchMeta.IsOperator(val) == false)
+                            throw new Exception(exceptionMsg);
+
+                        string val2 = singleRow["colValType"];
+                        if (val2 == Constants.ValueType_Bool && (val != Constants.operator_Eq && val != Constants.operator_NotEq))
+                            throw new Exception(exceptionMsg);
+                    }
+                    if (dgvSearch.Columns[k].Name == "searchVal1")
+                    {
+                        string val = singleRow["searchVal1"];
+                        string val2 = singleRow["colValType"];
+                        if (val2 == Constants.ValueType_Bool && (val != Constants.ValueBool_True && val != Constants.ValueBool_False))
+                            throw new Exception(exceptionMsg);
+                    }
+                }
+            }
+
+            // populate the grid anew from the search file dictionary
+            this.ClearSearchGrid(addDefaultRow: false);
+            foreach (Dictionary<string, string> singleRow in dictList)
+            {
+                AddNewSearchRowFromDict(singleRow);
+            }
+
+            UpdateQueryText();
+        }
+
+
         private string MakeQueryText()
         {
             // serialize the grid to plain-English looking equivalent query
@@ -910,17 +991,9 @@ namespace DataGridView_withQuery
                 RowX.Cells.Add(ComboCell_1);
             }
 
-
             DataGridViewComboBoxCell ComboCell_2 = new DataGridViewComboBoxCell();
 
             ComboCell_2.DisplayStyleForCurrentCellOnly = true;
-
-            /*
-            for (int k = 0; k < col_names.Length; k++)
-            {
-                ComboCell_2.Items.Add(col_names[k]);
-            }
-            */
 
             for (int k = 0; k < dgvToBeSearchedMeta.ColumnHeaderTextLength; k++)
                 ComboCell_2.Items.Add(dgvToBeSearchedMeta.GetColumnHeaderTextAt(k));
@@ -939,10 +1012,6 @@ namespace DataGridView_withQuery
 
             RowX.Cells.Add(ComboCell_3);  //the value type of the column
 
-
-            //DataGridViewComboBoxCell ComboCell_4 = new DataGridViewComboBoxCell();
-            //ComboCell_4.DisplayStyleForCurrentCellOnly = true;
-            //RowX.Cells.Add( ComboCell_4 );  //the search operator (will become a combo)
 
             RowX.Cells.Add(new DataGridViewTextBoxCell()); // the operator; will later become a combobox
 
@@ -1308,7 +1377,6 @@ namespace DataGridView_withQuery
             StopOnFirstMatch = false; // signals the background worker to NOT stop on finding a match
 
             backgroundWorker1.RunWorkerAsync();
-
         }
 
         private void BtnWizard_Click(object sender, EventArgs e)
@@ -1317,7 +1385,7 @@ namespace DataGridView_withQuery
             F_Wizard.ShowDialog();
 
             F_Wizard.Dispose();
-            F_Wizard = null;           
+            F_Wizard = null;
         }
 
         private void BtnCommands_Click(object sender, EventArgs e)
@@ -1410,7 +1478,7 @@ namespace DataGridView_withQuery
                                 MatchCount++;
                                 MatchedRowIndices.Add(i);
                             }
-                                
+
                             //else
                             //    UnMatchedRows.Add(i);
                         }
@@ -1489,7 +1557,7 @@ namespace DataGridView_withQuery
                     MessageBox.Show("Nothing was found", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                 {
-                    MessageBox.Show("Found " + Convert.ToInt32(MatchCount) + " records matching the query", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);                   
+                    MessageBox.Show("Found " + Convert.ToInt32(MatchCount) + " records matching the query", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     this.Cursor = Cursors.WaitCursor;
 
@@ -1518,7 +1586,7 @@ namespace DataGridView_withQuery
                     for (int i = 0; i < MatchedRowIndices.Count; ++i)
                     {
                         int k = MatchedRowIndices[i];
-                        MatchedRows[i] = (DataGridViewRow)dgvToBeSearchedMeta.dgv.Rows[ k ].Clone();
+                        MatchedRows[i] = (DataGridViewRow)dgvToBeSearchedMeta.dgv.Rows[k].Clone();
                         for (int j = 0; j < dgvToBeSearchedMeta.dgv.ColumnCount; ++j)
                         {
                             MatchedRows[i].Cells[j].Value = dgvToBeSearchedMeta.dgv.Rows[k].Cells[j].Value;
@@ -1574,17 +1642,13 @@ namespace DataGridView_withQuery
 
             List<Dictionary<string, string>> res = this.EncodeGridToListofDict();
 
-            //saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
             saveFileDialog1.Filter = "Grid Query Files|*.gridQ";
             saveFileDialog1.Title = "Save the search query to a file";
             saveFileDialog1.ShowDialog();
 
             if (saveFileDialog1.FileName != "")
             {
-                //System.IO.File.WriteAllText( saveFileDialog1.FileName, s);
-                //System.IO.Stream sw = System.IO.File.Open(saveFileDialog1.FileName + "_1", System.IO.FileMode.CreateNew);
                 System.IO.Stream sw = System.IO.File.Open(saveFileDialog1.FileName, System.IO.FileMode.OpenOrCreate);
-
 
                 BinaryFormatter b = new BinaryFormatter();
                 b.Serialize(sw, res);
@@ -1607,76 +1671,7 @@ namespace DataGridView_withQuery
                 {
                     var ans = this.DecodeGridDictFromBinary(openFileDialog1.FileName);
 
-                    // check if the search file is not corrputed
-                    foreach (Dictionary<string, string> singleRow in ans)
-                    {
-                        if (singleRow.Count != this.dgvSearch.Columns.Count)
-                        {
-                            throw new Exception("The search file is not in a correct format.");
-                        }
-
-                        // the column count is the same as the dicitionary elements; so we will simply exhaust the columns
-                        // ignoring a possible mixing of the order
-
-                        for (int k = 0; k < this.dgvSearch.ColumnCount; ++k)
-                        {
-                            if (singleRow.ContainsKey(this.dgvSearch.Columns[k].Name) == false)
-                                throw new Exception("The search file is not in a correct format.");
-                            if (dgvSearch.Columns[k].Name == "conj")
-                            {
-                                string val = singleRow["conj"];
-                                if (DGV_SearchMeta.IsConjText(val) == false)
-                                    throw new Exception("The search file is not in a correct format.");
-                            }
-                            if (dgvSearch.Columns[k].Name == "colName")
-                            {
-                                string val = singleRow["colName"];
-                                if (this.dgvToBeSearchedMeta.HasColumnNamed(val) == false)
-                                    throw new Exception("The search file is not in a correct format.");
-                            }
-                            if (dgvSearch.Columns[k].Name == "colIndex")
-                            {
-                                string val = singleRow["colIndex"];
-                                int x = -1;
-                                if (Int32.TryParse(val, out x) == false || (x < 0) || (x >= this.dgvToBeSearchedMeta.ColumnIndexLength))
-                                {
-                                    throw new Exception("The search file is not in a correct format.");
-                                }
-                            }
-                            if (dgvSearch.Columns[k].Name == "colValType")
-                            {
-                                string val = singleRow["colValType"];
-                                if (DGV_SearchMeta.IsValueType(val) == false)
-                                    throw new Exception("The search file is not in a correct format.");
-                            }
-                            if (dgvSearch.Columns[k].Name == "searchOperator")
-                            {
-                                string val = singleRow["searchOperator"];
-                                if (DGV_SearchMeta.IsOperator(val) == false)
-                                    throw new Exception("The search file is not in a correct format.");
-
-                                string val2 = singleRow["colValType"];
-                                if (val2 == Constants.ValueType_Bool && (val != Constants.operator_Eq && val != Constants.operator_NotEq))
-                                    throw new Exception("The search file is not in a correct format.");
-                            }
-                            if (dgvSearch.Columns[k].Name == "searchVal1")
-                            {
-                                string val = singleRow["searchVal1"];
-                                string val2 = singleRow["colValType"];
-                                if (val2 == Constants.ValueType_Bool && (val != Constants.ValueBool_True && val != Constants.ValueBool_False))
-                                    throw new Exception("The search file is not in a correct format.");
-                            }
-                        }
-                    }
-
-                    // populate the grid anew from the search file dictionary
-                    this.ClearSearchGrid(addDefaultRow: false);
-                    foreach (Dictionary<string, string> singleRow in ans)
-                    {
-                        AddNewSearchRowFromDict(singleRow);
-                    }
-
-                    UpdateQueryText();
+                    PopulateGridFrom_List_of_Dictionaries(ans);
                 }
             }
             catch (Exception ex)
