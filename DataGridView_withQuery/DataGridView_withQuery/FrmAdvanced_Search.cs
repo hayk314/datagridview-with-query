@@ -1638,24 +1638,31 @@ namespace DataGridView_withQuery
 
         private void MenuSaveSearch_Click(object sender, EventArgs e)
         {
-            string s = this.EncodeGridToString();
-
-            List<Dictionary<string, string>> res = this.EncodeGridToListofDict();
-
-            saveFileDialog1.Filter = "Grid Query Files|*.gridQ";
-            saveFileDialog1.Title = "Save the search query to a file";
-            saveFileDialog1.ShowDialog();
-
-            if (saveFileDialog1.FileName != "")
+            try
             {
-                System.IO.Stream sw = System.IO.File.Open(saveFileDialog1.FileName, System.IO.FileMode.OpenOrCreate);
+                string s = this.EncodeGridToString();
 
-                BinaryFormatter b = new BinaryFormatter();
-                b.Serialize(sw, res);
+                List<Dictionary<string, string>> res = this.EncodeGridToListofDict();
 
-                sw.Close();
+                saveFileDialog1.Filter = "Grid Query Files|*.gridQ";
+                saveFileDialog1.Title = "Save the search query to a file";
+                saveFileDialog1.ShowDialog();
 
-                MessageBox.Show("The search query was saved successfully", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (saveFileDialog1.FileName != "")
+                {
+                    System.IO.Stream sw = System.IO.File.Open(saveFileDialog1.FileName, System.IO.FileMode.OpenOrCreate);
+
+                    BinaryFormatter b = new BinaryFormatter();
+                    b.Serialize(sw, res);
+
+                    sw.Close();
+
+                    MessageBox.Show("The search query was saved successfully", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occured.\n" + ex.Message, Constants.msgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1678,7 +1685,6 @@ namespace DataGridView_withQuery
             {
                 MessageBox.Show("The following error occured.\n" + ex.Message, Constants.msgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void MenuClearAll_Click(object sender, EventArgs e)
@@ -1708,44 +1714,57 @@ namespace DataGridView_withQuery
 
         private void MenuPasteSearchRow_Click(object sender, EventArgs e)
         {
-            if (CopiedSearchRow == null)
-                MessageBox.Show("The clipboard is empty, cannot paste anything", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
+            try
             {
-                dgvSearch.Rows.Add(CopiedSearchRow.Clone() as DataGridViewRow);
-                for (int i = 0; i < dgvSearch.ColumnCount; i++)
-                    dgvSearch.Rows[dgvSearch.RowCount - 1].Cells[i].Value = CopiedSearchRow.Cells[i].Value;
+                if (CopiedSearchRow == null)
+                    MessageBox.Show("The clipboard is empty, cannot paste anything", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    dgvSearch.Rows.Add(CopiedSearchRow.Clone() as DataGridViewRow);
+                    for (int i = 0; i < dgvSearch.ColumnCount; i++)
+                        dgvSearch.Rows[dgvSearch.RowCount - 1].Cells[i].Value = CopiedSearchRow.Cells[i].Value;
 
-                txtSearch.Text = MakeQueryText();
-                HighLight_SearchText();  // apply the highlight on search text
+                    txtSearch.Text = MakeQueryText();
+                    HighLight_SearchText();  // apply the highlight on search text
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occured.\n" + ex.Message, Constants.msgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void MenuCopySearchRow_Click(object sender, EventArgs e)
         {
-            int k = dgvSearch.SelectedCells[0].RowIndex;
-
-            CopiedSearchRow = new DataGridViewRow();
-
-            DataGridViewComboBoxCell ComboCell_1 = new DataGridViewComboBoxCell();
-
-            ComboCell_1.Items.Add(Constants.ConjAnd);
-            ComboCell_1.Items.Add(Constants.ConjOr);
-            ComboCell_1.Items.Add(Constants.ConjNot);
-            ComboCell_1.DisplayStyleForCurrentCellOnly = true;
-
-            CopiedSearchRow.Cells.Add(ComboCell_1);
-
-            for (int i = 1; i < dgvSearch.ColumnCount; ++i)
+            try
             {
-                CopiedSearchRow.Cells.Add(dgvSearch.Rows[k].Cells[i].Clone() as DataGridViewCell);
-                CopiedSearchRow.Cells[i].Value = dgvSearch.Rows[k].Cells[i].Value;
+                int k = dgvSearch.SelectedCells[0].RowIndex;
+
+                CopiedSearchRow = new DataGridViewRow();
+
+                DataGridViewComboBoxCell ComboCell_1 = new DataGridViewComboBoxCell();
+
+                ComboCell_1.Items.Add(Constants.ConjAnd);
+                ComboCell_1.Items.Add(Constants.ConjOr);
+                ComboCell_1.Items.Add(Constants.ConjNot);
+                ComboCell_1.DisplayStyleForCurrentCellOnly = true;
+
+                CopiedSearchRow.Cells.Add(ComboCell_1);
+
+                for (int i = 1; i < dgvSearch.ColumnCount; ++i)
+                {
+                    CopiedSearchRow.Cells.Add(dgvSearch.Rows[k].Cells[i].Clone() as DataGridViewCell);
+                    CopiedSearchRow.Cells[i].Value = dgvSearch.Rows[k].Cells[i].Value;
+                }
+
+                CopiedSearchRow.Cells[0].Value = dgvSearch.Rows[k].Cells[0].Value;
+                if (CopiedSearchRow.Cells[0].Value.ToString() == Constants.ConjDeafult)
+                    CopiedSearchRow.Cells[0].Value = Constants.ConjAnd;
             }
-
-            CopiedSearchRow.Cells[0].Value = dgvSearch.Rows[k].Cells[0].Value;
-            if (CopiedSearchRow.Cells[0].Value.ToString() == Constants.ConjDeafult)
-                CopiedSearchRow.Cells[0].Value = Constants.ConjAnd;
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("The following error occured.\n" + ex.Message, Constants.msgError, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void MenuFilter_Click(object sender, EventArgs e)
