@@ -23,6 +23,8 @@ namespace DataGridView_withQuery
 
         private bool LastSearched_Exact = false;   // the value of last time the check exact match
 
+        private ComboBox cmbSearch_PrevState = null;  // the previous state of the cmbSearch
+
 
         public FrmSimple_Search()
         {
@@ -34,10 +36,21 @@ namespace DataGridView_withQuery
         /// </summary>
         /// <param name="dgvToSearch">The datagridview control on which the search will be performed</param>
         /// <param name="searchTitle">User defined title of the search form.</param>
-        public FrmSimple_Search(DataGridView dgvToSearch, string searchTitle)
+        public FrmSimple_Search(DataGridView dgvToSearch, string searchTitle, ComboBox cmbSearch_PrevState = null)
         {
             InitializeComponent();
             this.dgvToBeSearchedMeta = new DGV_SearchMeta(dgvToSearch, searchTitle);
+
+            // the search values are stored in the main class (DataGridView_withQuery) and are passed to
+            // this form to recover previously searched values
+            if (cmbSearch_PrevState != null)
+            {
+                for (int i = 0; i < cmbSearch_PrevState.Items.Count; ++i)
+                {
+                    this.cmbSearch.Items.Add(cmbSearch_PrevState.Items[i]);
+                }
+                this.cmbSearch_PrevState = cmbSearch_PrevState;
+            }
         }
 
         /// <summary>
@@ -96,6 +109,12 @@ namespace DataGridView_withQuery
                 MessageBox.Show("Please select a column to search", Constants.msgAttention, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.cmbColumns.Focus();
                 return;
+            }
+
+            // store the search value in the combo
+            if (this.cmbSearch.Items.Contains(this.cmbSearch.Text) == false)
+            {
+                this.cmbSearch.Items.Add(this.cmbSearch.Text);
             }
 
 
@@ -226,5 +245,15 @@ namespace DataGridView_withQuery
             this.Close();
         }
 
+        private void FrmSimple_Search_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.cmbSearch_PrevState != null && this.cmbSearch.Items.Count > 0 ) {
+                this.cmbSearch_PrevState.Items.Clear();
+                for (int i = 0; i < this.cmbSearch.Items.Count; ++i)
+                {
+                    this.cmbSearch_PrevState.Items.Add(this.cmbSearch.Items[i]);
+                }                
+            }            
+        }
     }
 }

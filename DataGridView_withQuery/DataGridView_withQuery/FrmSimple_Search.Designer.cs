@@ -133,6 +133,7 @@
             this.Name = "FrmSimple_Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Simple Search";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmSimple_Search_FormClosing);
             this.Load += new System.EventHandler(this.FrmSimple_Search_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

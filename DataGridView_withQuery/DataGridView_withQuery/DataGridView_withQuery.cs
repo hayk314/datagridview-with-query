@@ -4,6 +4,7 @@
   web:    https://github.com/hayk314
 */
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace DataGridView_withQuery
@@ -12,6 +13,14 @@ namespace DataGridView_withQuery
     {
         private FrmSimple_Search searchSimple_Form = null;
         private FrmAdvanced_Search searchAdvanced_Form = null;
+
+        private ComboBox cmbSearch_PrevState = null;  // stores the previous state of the FrmSimple_Search
+
+        public DataGridView_withQuery()
+        {
+            this.cmbSearch_PrevState = new ComboBox();
+        }
+
 
         ~DataGridView_withQuery()
         {
@@ -25,16 +34,21 @@ namespace DataGridView_withQuery
             {
                 this.searchAdvanced_Form.Close();
             }
-        }
-
+        }        
 
         private DataGridView GetBase()
         {
             return (DataGridView)this;  // this is necessary for the search forms
         }
 
+        /// <summary>
+        /// A string to be used in the caption of search forms.
+        /// </summary>
         public string SearchFormTitle // the title to be passed on to search forms
         { get; set; } = "";
+
+
+        //private ListBindingConverter<>
 
         public void SearchSimpleStart()
         {
@@ -47,7 +61,7 @@ namespace DataGridView_withQuery
 
             if (this.searchSimple_Form == null || this.searchSimple_Form.IsDisposed)
             {
-                this.searchSimple_Form = new FrmSimple_Search(dgv, this.SearchFormTitle);
+                this.searchSimple_Form = new FrmSimple_Search(dgv, this.SearchFormTitle, cmbSearch_PrevState:this.cmbSearch_PrevState);
             }
             this.searchSimple_Form.Show();
         }
