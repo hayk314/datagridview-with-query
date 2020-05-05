@@ -30,6 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.BtnWizard = new System.Windows.Forms.Button();
+            this.BtnAddNewSearchRow = new System.Windows.Forms.Button();
+            this.BtnFindNext = new System.Windows.Forms.Button();
+            this.BtnFilter = new System.Windows.Forms.Button();
+            this.BtnCommands = new System.Windows.Forms.Button();
+            this.BtnStopFilter = new System.Windows.Forms.Button();
+            this.BtnExit = new System.Windows.Forms.Button();
+            this.BtnDown = new System.Windows.Forms.Button();
+            this.BtnUp = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -51,22 +60,124 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.BtnWizard = new System.Windows.Forms.Button();
-            this.BtnAddNewSearchRow = new System.Windows.Forms.Button();
-            this.BtnFindNext = new System.Windows.Forms.Button();
-            this.BtnFilter = new System.Windows.Forms.Button();
-            this.BtnCommands = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.RichTextBox();
             this.lblSearchConditions = new System.Windows.Forms.Label();
             this.dgvSearch = new System.Windows.Forms.DataGridView();
-            this.BtnStopFilter = new System.Windows.Forms.Button();
             this.Label1 = new System.Windows.Forms.Label();
-            this.BtnExit = new System.Windows.Forms.Button();
-            this.BtnDown = new System.Windows.Forms.Button();
-            this.BtnUp = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearch)).BeginInit();
             this.SuspendLayout();
+            // 
+            // BtnWizard
+            // 
+            this.BtnWizard.Location = new System.Drawing.Point(619, 375);
+            this.BtnWizard.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnWizard.Name = "BtnWizard";
+            this.BtnWizard.Size = new System.Drawing.Size(84, 31);
+            this.BtnWizard.TabIndex = 135;
+            this.BtnWizard.Text = "Wizard";
+            this.toolTip1.SetToolTip(this.BtnWizard, "Open the search wizard");
+            this.BtnWizard.UseVisualStyleBackColor = true;
+            this.BtnWizard.Click += new System.EventHandler(this.BtnWizard_Click);
+            // 
+            // BtnAddNewSearchRow
+            // 
+            this.BtnAddNewSearchRow.Location = new System.Drawing.Point(526, 375);
+            this.BtnAddNewSearchRow.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnAddNewSearchRow.Name = "BtnAddNewSearchRow";
+            this.BtnAddNewSearchRow.Size = new System.Drawing.Size(84, 31);
+            this.BtnAddNewSearchRow.TabIndex = 134;
+            this.BtnAddNewSearchRow.Text = "New Row";
+            this.toolTip1.SetToolTip(this.BtnAddNewSearchRow, "Add new search row");
+            this.BtnAddNewSearchRow.UseVisualStyleBackColor = true;
+            this.BtnAddNewSearchRow.Click += new System.EventHandler(this.BtnAddNewSearchRow_Click);
+            // 
+            // BtnFindNext
+            // 
+            this.BtnFindNext.Location = new System.Drawing.Point(229, 375);
+            this.BtnFindNext.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnFindNext.Name = "BtnFindNext";
+            this.BtnFindNext.Size = new System.Drawing.Size(91, 31);
+            this.BtnFindNext.TabIndex = 133;
+            this.BtnFindNext.Text = "Find Next";
+            this.toolTip1.SetToolTip(this.BtnFindNext, "Find the next value in the data grid matching the query");
+            this.BtnFindNext.UseVisualStyleBackColor = true;
+            this.BtnFindNext.Click += new System.EventHandler(this.BtnFindNext_Click);
+            // 
+            // BtnFilter
+            // 
+            this.BtnFilter.Location = new System.Drawing.Point(130, 375);
+            this.BtnFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnFilter.Name = "BtnFilter";
+            this.BtnFilter.Size = new System.Drawing.Size(91, 31);
+            this.BtnFilter.TabIndex = 132;
+            this.BtnFilter.Text = "Filter";
+            this.toolTip1.SetToolTip(this.BtnFilter, "Filter data grid by the query");
+            this.BtnFilter.UseVisualStyleBackColor = true;
+            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
+            // 
+            // BtnCommands
+            // 
+            this.BtnCommands.Location = new System.Drawing.Point(24, 375);
+            this.BtnCommands.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnCommands.Name = "BtnCommands";
+            this.BtnCommands.Size = new System.Drawing.Size(91, 31);
+            this.BtnCommands.TabIndex = 131;
+            this.BtnCommands.Text = "Commands";
+            this.toolTip1.SetToolTip(this.BtnCommands, "Open list of commands");
+            this.BtnCommands.UseVisualStyleBackColor = true;
+            this.BtnCommands.Click += new System.EventHandler(this.BtnCommands_Click);
+            // 
+            // BtnStopFilter
+            // 
+            this.BtnStopFilter.Enabled = false;
+            this.BtnStopFilter.Location = new System.Drawing.Point(327, 375);
+            this.BtnStopFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnStopFilter.Name = "BtnStopFilter";
+            this.BtnStopFilter.Size = new System.Drawing.Size(84, 31);
+            this.BtnStopFilter.TabIndex = 125;
+            this.BtnStopFilter.Text = "Stop";
+            this.toolTip1.SetToolTip(this.BtnStopFilter, "Stop the search");
+            this.BtnStopFilter.UseVisualStyleBackColor = true;
+            this.BtnStopFilter.Click += new System.EventHandler(this.BtnStopFilter_Click);
+            // 
+            // BtnExit
+            // 
+            this.BtnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BtnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.BtnExit.Location = new System.Drawing.Point(711, 375);
+            this.BtnExit.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnExit.Name = "BtnExit";
+            this.BtnExit.Size = new System.Drawing.Size(61, 31);
+            this.BtnExit.TabIndex = 123;
+            this.BtnExit.Text = "Exit";
+            this.toolTip1.SetToolTip(this.BtnExit, "Close the screen");
+            this.BtnExit.UseVisualStyleBackColor = true;
+            this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
+            // 
+            // BtnDown
+            // 
+            this.BtnDown.Image = global::DataGridView_withQuery.Properties.Resources.arrow_down;
+            this.BtnDown.Location = new System.Drawing.Point(785, 75);
+            this.BtnDown.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnDown.Name = "BtnDown";
+            this.BtnDown.Size = new System.Drawing.Size(42, 43);
+            this.BtnDown.TabIndex = 127;
+            this.toolTip1.SetToolTip(this.BtnDown, "Move the row down");
+            this.BtnDown.UseVisualStyleBackColor = true;
+            this.BtnDown.Click += new System.EventHandler(this.BtnDown_Click);
+            // 
+            // BtnUp
+            // 
+            this.BtnUp.Image = global::DataGridView_withQuery.Properties.Resources.arrow_up;
+            this.BtnUp.Location = new System.Drawing.Point(783, 23);
+            this.BtnUp.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnUp.Name = "BtnUp";
+            this.BtnUp.Size = new System.Drawing.Size(44, 44);
+            this.BtnUp.TabIndex = 126;
+            this.toolTip1.SetToolTip(this.BtnUp, "Move the row up");
+            this.BtnUp.UseVisualStyleBackColor = true;
+            this.BtnUp.Click += new System.EventHandler(this.BtnUp_Click);
             // 
             // backgroundWorker1
             // 
@@ -216,66 +327,6 @@
             this.progressBar1.TabIndex = 136;
             this.progressBar1.Visible = false;
             // 
-            // BtnWizard
-            // 
-            this.BtnWizard.Location = new System.Drawing.Point(619, 375);
-            this.BtnWizard.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnWizard.Name = "BtnWizard";
-            this.BtnWizard.Size = new System.Drawing.Size(84, 31);
-            this.BtnWizard.TabIndex = 135;
-            this.BtnWizard.Text = "Wizard";
-            this.toolTip1.SetToolTip(this.BtnWizard, "Open the search wizard");
-            this.BtnWizard.UseVisualStyleBackColor = true;
-            this.BtnWizard.Click += new System.EventHandler(this.BtnWizard_Click);
-            // 
-            // BtnAddNewSearchRow
-            // 
-            this.BtnAddNewSearchRow.Location = new System.Drawing.Point(526, 375);
-            this.BtnAddNewSearchRow.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnAddNewSearchRow.Name = "BtnAddNewSearchRow";
-            this.BtnAddNewSearchRow.Size = new System.Drawing.Size(84, 31);
-            this.BtnAddNewSearchRow.TabIndex = 134;
-            this.BtnAddNewSearchRow.Text = "New Row";
-            this.toolTip1.SetToolTip(this.BtnAddNewSearchRow, "Add new search row");
-            this.BtnAddNewSearchRow.UseVisualStyleBackColor = true;
-            this.BtnAddNewSearchRow.Click += new System.EventHandler(this.BtnAddNewSearchRow_Click);
-            // 
-            // BtnFindNext
-            // 
-            this.BtnFindNext.Location = new System.Drawing.Point(229, 375);
-            this.BtnFindNext.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnFindNext.Name = "BtnFindNext";
-            this.BtnFindNext.Size = new System.Drawing.Size(91, 31);
-            this.BtnFindNext.TabIndex = 133;
-            this.BtnFindNext.Text = "Find Next";
-            this.toolTip1.SetToolTip(this.BtnFindNext, "Find the next value in the data grid matching the query");
-            this.BtnFindNext.UseVisualStyleBackColor = true;
-            this.BtnFindNext.Click += new System.EventHandler(this.BtnFindNext_Click);
-            // 
-            // BtnFilter
-            // 
-            this.BtnFilter.Location = new System.Drawing.Point(130, 375);
-            this.BtnFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnFilter.Name = "BtnFilter";
-            this.BtnFilter.Size = new System.Drawing.Size(91, 31);
-            this.BtnFilter.TabIndex = 132;
-            this.BtnFilter.Text = "Filter";
-            this.toolTip1.SetToolTip(this.BtnFilter, "Filter data grid by the query");
-            this.BtnFilter.UseVisualStyleBackColor = true;
-            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
-            // 
-            // BtnCommands
-            // 
-            this.BtnCommands.Location = new System.Drawing.Point(24, 375);
-            this.BtnCommands.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnCommands.Name = "BtnCommands";
-            this.BtnCommands.Size = new System.Drawing.Size(91, 31);
-            this.BtnCommands.TabIndex = 131;
-            this.BtnCommands.Text = "Commands";
-            this.toolTip1.SetToolTip(this.BtnCommands, "Open list of commands");
-            this.BtnCommands.UseVisualStyleBackColor = true;
-            this.BtnCommands.Click += new System.EventHandler(this.BtnCommands_Click);
-            // 
             // txtSearch
             // 
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -310,19 +361,6 @@
             this.dgvSearch.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSearch_CellEndEdit);
             this.dgvSearch.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSearch_EditingControlShowing);
             // 
-            // BtnStopFilter
-            // 
-            this.BtnStopFilter.Enabled = false;
-            this.BtnStopFilter.Location = new System.Drawing.Point(327, 375);
-            this.BtnStopFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnStopFilter.Name = "BtnStopFilter";
-            this.BtnStopFilter.Size = new System.Drawing.Size(84, 31);
-            this.BtnStopFilter.TabIndex = 125;
-            this.BtnStopFilter.Text = "Stop";
-            this.toolTip1.SetToolTip(this.BtnStopFilter, "Stop the search");
-            this.BtnStopFilter.UseVisualStyleBackColor = true;
-            this.BtnStopFilter.Click += new System.EventHandler(this.BtnStopFilter_Click);
-            // 
             // Label1
             // 
             this.Label1.Location = new System.Drawing.Point(771, 21);
@@ -330,44 +368,6 @@
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(7, 60);
             this.Label1.TabIndex = 124;
-            // 
-            // BtnExit
-            // 
-            this.BtnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.BtnExit.Location = new System.Drawing.Point(711, 375);
-            this.BtnExit.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnExit.Name = "BtnExit";
-            this.BtnExit.Size = new System.Drawing.Size(61, 31);
-            this.BtnExit.TabIndex = 123;
-            this.BtnExit.Text = "Exit";
-            this.toolTip1.SetToolTip(this.BtnExit, "Close the screen");
-            this.BtnExit.UseVisualStyleBackColor = true;
-            this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
-            // 
-            // BtnDown
-            // 
-            this.BtnDown.Image = global::DataGridView_withQuery.Properties.Resources.arrow_down;
-            this.BtnDown.Location = new System.Drawing.Point(785, 75);
-            this.BtnDown.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnDown.Name = "BtnDown";
-            this.BtnDown.Size = new System.Drawing.Size(42, 43);
-            this.BtnDown.TabIndex = 127;
-            this.toolTip1.SetToolTip(this.BtnDown, "Move the row down");
-            this.BtnDown.UseVisualStyleBackColor = true;
-            this.BtnDown.Click += new System.EventHandler(this.BtnDown_Click);
-            // 
-            // BtnUp
-            // 
-            this.BtnUp.Image = global::DataGridView_withQuery.Properties.Resources.arrow_up;
-            this.BtnUp.Location = new System.Drawing.Point(783, 23);
-            this.BtnUp.Margin = new System.Windows.Forms.Padding(4);
-            this.BtnUp.Name = "BtnUp";
-            this.BtnUp.Size = new System.Drawing.Size(44, 44);
-            this.BtnUp.TabIndex = 126;
-            this.toolTip1.SetToolTip(this.BtnUp, "Move the row up");
-            this.BtnUp.UseVisualStyleBackColor = true;
-            this.BtnUp.Click += new System.EventHandler(this.BtnUp_Click);
             // 
             // FrmAdvanced_Search
             // 
@@ -395,6 +395,7 @@
             this.Name = "FrmAdvanced_Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Advanced Search";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAdvanced_Search_FormClosing);
             this.Load += new System.EventHandler(this.FrmAdvanced_Search_Load);
             this.Resize += new System.EventHandler(this.FrmAdvanced_Search_Resize);
             this.contextMenuStrip1.ResumeLayout(false);

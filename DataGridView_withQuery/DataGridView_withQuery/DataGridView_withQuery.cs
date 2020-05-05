@@ -14,11 +14,13 @@ namespace DataGridView_withQuery
         private FrmSimple_Search searchSimple_Form = null;
         private FrmAdvanced_Search searchAdvanced_Form = null;
 
-        private ComboBox cmbSearch_PrevState = null;  // stores the previous state of the FrmSimple_Search
+        private ComboBox cmbSearch_PrevState = null;                               // stores the previous state of the FrmSimple_Search cmbSearch
+        private List<Dictionary<string, string>> advancedSearch_PrevState = null;  // stores the previous state of the FrmAdvanced_Search searchgrid
 
         public DataGridView_withQuery()
         {
             this.cmbSearch_PrevState = new ComboBox();
+            this.advancedSearch_PrevState = new List<Dictionary<string, string>>();
         }
 
 
@@ -77,7 +79,7 @@ namespace DataGridView_withQuery
 
             if (this.searchAdvanced_Form == null || this.searchAdvanced_Form.IsDisposed)
             {
-                this.searchAdvanced_Form = new FrmAdvanced_Search(dgv, this.SearchFormTitle);
+                this.searchAdvanced_Form = new FrmAdvanced_Search(dgv, this.SearchFormTitle, this.advancedSearch_PrevState);
             }
             this.searchAdvanced_Form.Show();
         }

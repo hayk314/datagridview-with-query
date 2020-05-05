@@ -37,7 +37,7 @@ namespace DataGridView_withQuery
         private List<int> MatchedRowIndices = null;
         private int MatchCount = 0;             // how many (visible) rows match the filter
 
-
+        private List<Dictionary<string, string>> advancedSearch_PrevState = null;
         /* the grid structure
          conj
          colName
@@ -58,13 +58,14 @@ namespace DataGridView_withQuery
             DoResize();
         }
 
-        public FrmAdvanced_Search(DataGridView dgvToSearch, string searchTitle)
+        public FrmAdvanced_Search(DataGridView dgvToSearch, string searchTitle, List<Dictionary<string, string>> advancedSearch_PrevState)
         {
             InitializeComponent();
 
             DoResize();
 
             this.dgvToBeSearchedMeta = new DGV_SearchMeta(dgvToSearch, searchTitle);
+            this.advancedSearch_PrevState = advancedSearch_PrevState; 
         }
 
         #endregion
@@ -163,6 +164,12 @@ namespace DataGridView_withQuery
 
             this.Size = new Size(800, 450);
             this.CenterToScreen();
+
+            if (this.advancedSearch_PrevState != null && this.advancedSearch_PrevState.Count > 0)
+            {
+                PopulateGridFrom_List_of_Dictionaries(this.advancedSearch_PrevState);
+            }
+
         }
 
         private void FrmAdvanced_Search_Resize(object sender, EventArgs e)
@@ -285,20 +292,20 @@ namespace DataGridView_withQuery
                     if (dgvSearch.Columns[k].Name == "conj")
                     {
                         string val = singleRow["conj"];
-                        if (DGV_SearchMeta.IsConjText(val) == false)
+                        if (val != "" && DGV_SearchMeta.IsConjText(val) == false)
                             throw new Exception(exceptionMsg);
                     }
                     if (dgvSearch.Columns[k].Name == "colName")
                     {
                         string val = singleRow["colName"];
-                        if (this.dgvToBeSearchedMeta.HasColumnNamed(val) == false)
+                        if (val != "" && this.dgvToBeSearchedMeta.HasColumnNamed(val) == false)
                             throw new Exception(exceptionMsg);
                     }
                     if (dgvSearch.Columns[k].Name == "colIndex")
                     {
                         string val = singleRow["colIndex"];
                         int x = -1;
-                        if (Int32.TryParse(val, out x) == false || (x < 0) || (x >= this.dgvToBeSearchedMeta.ColumnIndexLength))
+                        if ( (val != "") && (Int32.TryParse(val, out x) == false || (x < 0) || (x >= this.dgvToBeSearchedMeta.ColumnIndexLength)))
                         {
                             throw new Exception(exceptionMsg);
                         }
@@ -306,13 +313,13 @@ namespace DataGridView_withQuery
                     if (dgvSearch.Columns[k].Name == "colValType")
                     {
                         string val = singleRow["colValType"];
-                        if (DGV_SearchMeta.IsValueType(val) == false)
+                        if ( val != "" && DGV_SearchMeta.IsValueType(val) == false)
                             throw new Exception(exceptionMsg);
                     }
                     if (dgvSearch.Columns[k].Name == "searchOperator")
                     {
                         string val = singleRow["searchOperator"];
-                        if (DGV_SearchMeta.IsOperator(val) == false)
+                        if (val != "" && DGV_SearchMeta.IsOperator(val) == false)
                             throw new Exception(exceptionMsg);
 
                         string val2 = singleRow["colValType"];
@@ -351,11 +358,11 @@ namespace DataGridView_withQuery
             for (int i = 0; i < dgvSearch.RowCount; ++i)
             {
                 // some safety checks and sanitation of the grid to avoid null conversion exception
-                if (dgvSearch.Rows[i].Cells["conj"].Value == null)
+                if (dgvSearch.Rows[i].Cells["conj"].Value == null || dgvSearch.Rows[i].Cells["conj"].Value.ToString() == "")
                     continue;
-                if (dgvSearch.Rows[i].Cells["colName"].Value == null)
+                if (dgvSearch.Rows[i].Cells["colName"].Value == null || dgvSearch.Rows[i].Cells["colName"].Value.ToString() == "")
                     continue;
-                if (dgvSearch.Rows[i].Cells["operator"].Value == null)
+                if (dgvSearch.Rows[i].Cells["operator"].Value == null || dgvSearch.Rows[i].Cells["operator"].Value.ToString() == "")
                     continue;
                 if (dgvSearch.Rows[i].Cells["searchVal"].Value == null)
                     dgvSearch.Rows[i].Cells["searchVal"].Value = "";
@@ -423,14 +430,18 @@ namespace DataGridView_withQuery
             }
 
             if (strQuery != "")
-            {
                 strQuery += " OR ( " + strOR_Block + " )";
-            }
             else
-                strQuery += "( " + strOR_Block + " )";
+            {
+                if (strOR_Block != "")
+                    strQuery += "( " + strOR_Block + " )";
+            }
+             
+
+            if (strQuery == "")
+                return "";
 
             return "Search in " + dgvToBeSearchedMeta.title + " WHERE \n" + strQuery;
-
         }
 
         #endregion
@@ -1775,6 +1786,18 @@ namespace DataGridView_withQuery
         private void MenuFindNext_Click(object sender, EventArgs e)
         {
             BtnFindNext_Click(sender, e);
+        }
+
+        private void FrmAdvanced_Search_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var searchDict = this.EncodeGridToListofDict();
+            //this.advancedSearch_PrevState = this.EncodeGridToListofDict();
+            //this.advancedSearch_PrevState = new List<Dictionary<string, string>>();
+            this.advancedSearch_PrevState.Clear();
+            foreach (Dictionary<string, string> singleRow in searchDict)
+            {
+                this.advancedSearch_PrevState.Add(singleRow);
+            }
         }
     }
 }
